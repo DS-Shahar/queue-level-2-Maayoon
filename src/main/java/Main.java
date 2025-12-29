@@ -194,6 +194,68 @@ public class Main
         }
         return temp2;
     }
+    
+    
+    
+    
+    
+    public static Queue<Integer> ex5(Queue<Integer> q1, Queue<Integer> q2)
+    {
+        Queue<Integer> a = copy(q1);
+        Queue<Integer> b = copy(q2);
+        Queue<Integer> merged = new Queue<>();
+    
+        while (!a.isEmpty() && !b.isEmpty())
+        {
+            if (a.head() <= b.head())
+                merged.insert(a.remove());
+            else
+                merged.insert(b.remove());
+        }
+    
+        while (!a.isEmpty())
+            merged.insert(a.remove());
+    
+        while (!b.isEmpty())
+            merged.insert(b.remove());
+    
+        return merged;
+    }
+	
+	
+	
+	
+    // סיבוכיות : O(n)	
+    public static int ex6(Queue<Integer> q)
+    {
+        Queue<Integer> copy = copy(q);
+        int sum = 0, count = 0;
+        int sumMax = 0, countMax = 0;
+    
+        while (!copy.isEmpty())
+        {
+            int x = copy.remove();
+            
+            if (x % 2 == 0)
+            {
+                sum += x;
+                count++;
+                
+                if (count > countMax)   
+                {
+                    countMax = count;
+                    sumMax = sum;
+                }
+            }
+            else
+            {
+                sum = 0;
+                count = 0;
+            }
+        }
+        return sumMax;
+    }
+	
 	
 	
 	
@@ -207,7 +269,7 @@ public class Main
 	public static void main(String [] args)
 	{
 	    int [] a = {1,2,2,5};
-	    int [] b = {18,21,81,3};
+	    int [] b = {3,18,21,81};
         Queue <Integer> q1 = buildQueue(a);
         Queue <Integer> q2 = buildQueue(b);
         
@@ -222,6 +284,8 @@ public class Main
 	    System.out.println(ex2(qString));
 	    System.out.println(ex3(q1));
 	    System.out.println(ex4(q2));
+	    System.out.println(ex5(q1,q2));
+	    System.out.println(ex6(q1));
 
 
 	    
