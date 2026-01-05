@@ -98,7 +98,41 @@ public class Main
 
 	}
 	
+
 	
+	public static Queue<Integer> sort (Queue <Integer> q)
+	{
+        Queue <Integer> copy = copy(q);
+        Queue <Integer> newQ = new Queue<>();     
+        
+        Queue <Integer> [] arr = new Queue [10];
+        for (int k=0; k<10; k++)
+        {
+            arr[k] = new Queue<>();
+        }
+	    
+	    int biggest = max(copy);
+        copy = copy(q);
+        
+        for(int i=0; i<digitsCount(biggest); i++)
+        {
+            while(!copy.isEmpty())
+            {
+                int current = copy.remove();
+                arr[digit(current, i)].insert(current);                
+            }
+            
+            for(int j=0; j<10; j++)
+            {
+                while (!arr[j].isEmpty())
+                {
+                    copy.insert(arr[j].remove());    
+                }
+            }
+            
+	    }
+	    return copy;
+	}
 	
     
    
@@ -114,6 +148,7 @@ public class Main
 	    System.out.println(max(q1));
 	    System.out.println(digitsCount(3895));
 	    System.out.println(digit(3895, 3));
+	    System.out.println(sort(q2));
 
 	    
 
