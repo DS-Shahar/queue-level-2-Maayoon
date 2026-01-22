@@ -247,7 +247,21 @@ public class Main
 	    System.out.println(digit(3895, 3));
 	    System.out.println(sort(q2));
 
-	    
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		BinNode<Integer> t15 = new BinNode<Integer>(15);
+		BinNode<Integer> t14 = new BinNode<Integer>(14);
+		BinNode<Integer> tree = new BinNode<Integer>(t15, 3, t14);
+		BinNode<Integer> t9 = new BinNode<Integer>(9);
+		tree.getLeft().setLeft(new BinNode<Integer>(t9, 6, new BinNode<Integer>(7)));
+		tree.getLeft().setRight(new BinNode<Integer>(new BinNode<Integer>(34), 56, new BinNode<Integer>(12)));
+
+		
+	    tree11a(tree);
+		System.out.println(tree11b(tree));
+		System.out.println(tree11c(tree));
+		System.out.println(tree11d(tree));
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
