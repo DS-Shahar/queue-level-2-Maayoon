@@ -133,10 +133,107 @@ public class Main
 	    }
 	    return copy;
 	}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		public static void tree11a (BinNode<Integer> t) 
+	{
+        if (t == null) 
+            return;
+        
+        if (t.getValue() % 2 == 0) 
+        {
+            boolean hasEvenChild = false;
+
+            if (t.hasLeft() && t.getLeft().getValue() % 2 == 1) 
+                hasEvenChild = true;
+
+            if (t.hasRight() && t.getRight().getValue() % 2 == 1) 
+                hasEvenChild = true;
+
+            if (!hasEvenChild) 
+                System.out.println(t.getValue());
+        }
+        tree11a(t.getLeft());
+        tree11a(t.getRight());
+	}
 	
+	
+	
+	
+	public static int tree11b (BinNode<Integer> t) 
+	{
+        if (t == null) 
+            return 0;
+        
+        int count=0;
+        
+        if (t.getValue() % 2 == 0) 
+        {
+            boolean hasEvenChild = false;
+
+            if (t.hasLeft() && t.getLeft().getValue() % 2 == 1) 
+                hasEvenChild = true;
+
+            if (t.hasRight() && t.getRight().getValue() % 2 == 1) 
+                hasEvenChild = true;
+
+            if (!hasEvenChild) 
+                count=1;
+        }
+        return count + tree11b(t.getLeft()) + tree11b(t.getRight());
+	}
+	
+	
+	
+	
+    public static boolean tree11c(BinNode<Integer> t)
+    {
+        if (t == null)
+            return false;
+    
+        boolean bool = false;
+    
+        if (t.getValue() % 2 == 0)
+        {
+            boolean hasOddChild = false;
+    
+            if (t.hasLeft() && t.getLeft().getValue() % 2 == 1)
+                hasOddChild = true;
+    
+            if (t.hasRight() && t.getRight().getValue() % 2 == 1)
+                hasOddChild = true;
+    
+            if (!hasOddChild)
+                bool = true;
+        }
+        return bool || tree11c(t.getLeft()) || tree11c(t.getRight());
+    }
+    
     
    
+    
+    public static boolean tree11d(BinNode<Integer> t)
+    {
+        if (t == null)
+            return false;   
+    
+        boolean bool = true;
+    
+        if (t.getValue() % 2 == 0)
+        {
+            if (t.hasLeft() && t.getLeft().getValue() % 2 == 1)
+                bool = false;
+    
+            if (t.hasRight() && t.getRight().getValue() % 2 == 1)
+                bool = false;
+        }
+        return bool && tree11d(t.getLeft()) && tree11d(t.getRight());
+    }
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+
 	
 	public static void main(String [] args)
 	{
