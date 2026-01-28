@@ -234,6 +234,86 @@ public class Main
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 
+
+
+
+
+
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static int between10and100(BinNode<Integer> t)      //ex12
+    {
+        if (t == null) 
+            return 0;
+        
+        int count=0;
+            
+        if (t.getValue() < 100 && t.getValue() >= 10) 
+            count=1;
+            
+        return count + between10and100(t.getLeft()) + between10and100(t.getRight());
+    }
+    
+    
+    
+    
+    public static int numLeaves (BinNode<Integer> t)       //ex14
+	{
+        if (t == null) 
+            return 0;
+        
+        int count=0;
+            
+        if (!t.hasRight() && !t.hasLeft()) 
+            count=1;
+            
+        return count + numLeaves(t.getLeft()) + numLeaves(t.getRight());
+	}
+    
+    
+    
+    
+    public static double hasTwoSons (BinNode<Integer> t)       //ex16
+	{
+        if (t == null) 
+            return 0;
+        
+        double sum=0;
+            
+        if (t.hasRight() && t.hasLeft()) 
+            sum = t.getValue();
+            
+        return sum + hasTwoSons(t.getLeft()) + hasTwoSons(t.getRight());
+	}
+	
+	
+	
+	
+	public static int twoSonsNotLeaves (BinNode<Integer> t)       //ex17
+	{
+        if (t == null) 
+            return 0;
+        
+        int count = 0;
+            
+        if (t.hasRight() && t.hasLeft())
+        {
+            if ((t.getLeft().hasLeft() || t.getLeft().hasRight()) && (t.getRight().hasRight() || t.getRight().hasLeft()))
+                count = 1;
+        }
+        return count + twoSonsNotLeaves(t.getLeft()) + twoSonsNotLeaves(t.getRight());
+	}
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
 	
 	public static void main(String [] args)
 	{
@@ -248,6 +328,9 @@ public class Main
 	    System.out.println(sort(q2));
 
 
+
+
+		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		BinNode<Integer> t15 = new BinNode<Integer>(15);
 		BinNode<Integer> t14 = new BinNode<Integer>(14);
