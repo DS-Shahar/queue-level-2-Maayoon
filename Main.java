@@ -302,6 +302,24 @@ public class Main
         }
         return count + twoSonsNotLeaves(t.getLeft()) + twoSonsNotLeaves(t.getRight());
 	}
+
+
+
+
+	public static boolean allLeavesEven(BinNode<Integer> t) //class ex
+    {
+        if (t == null)
+            return true;   
+    
+        if (!t.hasRight() && !t.hasLeft()) 
+        {
+            if (t.getValue() % 2 != 0)
+            {
+                return false;
+            }
+        }
+        return allLeavesEven(t.getLeft()) && allLeavesEven(t.getRight());
+    }
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
