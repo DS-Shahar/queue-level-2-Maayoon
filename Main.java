@@ -320,6 +320,25 @@ public class Main
         }
         return allLeavesEven(t.getLeft()) && allLeavesEven(t.getRight());
     }
+
+
+
+
+
+	public static boolean allLeftHaveRight(BinNode<Integer> t)
+    {
+        if (t == null)
+            return true;   
+    
+        if (t.hasRight()) 
+        {
+            if (!t.hasLeft())
+            {
+                return false;
+            }
+        }
+        return allLeftHaveRight(t.getLeft()) && allLeftHaveRight(t.getRight());
+    }
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
