@@ -237,6 +237,42 @@ public class Main
 
 
 
+	public static boolean allLeavesEven(BinNode<Integer> t) 
+    {
+        if (t == null)
+            return true;   
+    
+        if (!t.hasRight() && !t.hasLeft()) 
+        {
+            if (t.getValue() % 2 != 0)
+            {
+                return false;
+            }
+        }
+        return allLeavesEven(t.getLeft()) && allLeavesEven(t.getRight());
+    }
+
+
+
+
+
+	public static boolean allLeftHaveRight(BinNode<Integer> t)
+    {
+        if (t == null)
+            return true;   
+    
+        if (t.hasRight()) 
+        {
+            if (!t.hasLeft())
+            {
+                return false;
+            }
+        }
+        return allLeftHaveRight(t.getLeft()) && allLeftHaveRight(t.getRight());
+    }
+
+
+
 
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -306,45 +342,63 @@ public class Main
 
 
 
-	public static boolean allLeavesEven(BinNode<Integer> t) //class ex
+    public static boolean containsAll(BinNode<Integer> t1, BinNode<Integer> t2)       //ex 18
     {
-        if (t == null)
-            return true;   
+        if (t2 == null)
+            return true;
     
-        if (!t.hasRight() && !t.hasLeft()) 
+        if (t1 == null)
+            return false;
+    
+        if (!exists(t1, t2.getValue()))
+            return false;
+    
+        return containsAll(t1, t2.getLeft()) &&
+               containsAll(t1, t2.getRight());
+    }
+    
+    
+        
+    
+    public static boolean isOkvimN(BinNode<Integer> t, int n)       //ex 20
+    {
+        for (int i = 1; i <= n; i++)
         {
-            if (t.getValue() % 2 != 0)
-            {
+            if (!exists(t, i))
                 return false;
-            }
         }
-        return allLeavesEven(t.getLeft()) && allLeavesEven(t.getRight());
+    
+        return countNodes(t) == n;
     }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-	public static boolean allLeftHaveRight(BinNode<Integer> t)
+	
+    
+//helper functions   
+/////////////////////////////////////////////////////////////////////////////////////////////
+    private static boolean exists(BinNode<Integer> t, int x)
     {
         if (t == null)
-            return true;   
+            return false;
     
-        if (t.hasRight()) 
-        {
-            if (!t.hasLeft())
-            {
-                return false;
-            }
-        }
-        return allLeftHaveRight(t.getLeft()) && allLeftHaveRight(t.getRight());
+        if (t.getValue() == x)
+            return true;
+    
+        return exists(t.getLeft(), x) ||
+               exists(t.getRight(), x);
     }
-   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 
 
-
-
-
+    private static int countNodes(BinNode<Integer> t)
+    {
+        if (t == null)
+            return 0;
+    
+        return 1 + countNodes(t.getLeft()) + countNodes(t.getRight());
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
