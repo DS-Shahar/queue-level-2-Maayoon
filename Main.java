@@ -1,0 +1,451 @@
+import java.util.*;
+public class Main 
+{	
+ 
+ 
+//////////////////////////////////////////////////////////////////////////
+
+    static Scanner reader = new Scanner(System.in);
+
+	public static Queue<Integer> buildQueue (int [] arr) 
+	{	
+	    Queue <Integer> q = new Queue<>();     
+      
+	    for (int i=0; i<arr.length; i++)
+	    {
+            q.insert(arr[i]);
+	    }
+	    return q;
+	}
+	
+	
+	
+
+
+	public static Queue<Integer> copy (Queue <Integer> q) 
+	{
+        Queue <Integer> newQ1 = new Queue<>();     
+        Queue <Integer> newQ2 = new Queue<>();
+        
+	    while (!q.isEmpty())
+	    {
+	        newQ1.insert(q.head());
+            newQ2.insert(q.remove());
+	    }
+	    
+	    while (!newQ1.isEmpty())
+	    {
+            q.insert(newQ1.remove());
+	    }
+	    return newQ2;
+	}
+	
+//////////////////////////////////////////////////////////////////////////	
+	
+	
+	
+    
+
+	public static int max (Queue <Integer> q) 
+	{
+        Queue <Integer> copy = copy(q);
+        
+        int max = copy.remove();
+        
+	    while (!copy.isEmpty())
+	    {
+        	if (max < copy.head())
+        	{
+        	    max = copy.remove();
+        	}
+        	else
+        	{
+        	    copy.remove();
+        	}
+	    }
+	    return max;
+	}
+	
+	
+	
+	
+	public static int digitsCount (int num) 
+	{
+	    int count = 0;
+	    
+	    while (num!=0)
+	    {
+            num=num/10;
+            count++;
+	    }
+	    return count;
+	}
+	
+	
+	
+	
+	public static int digit (int num, int index) 
+	{
+	    if (digitsCount(num) < index)
+	        return 0; 
+	    
+	    for (int i=0; i<(index-1); i++)
+	    {
+	        num=num/10;
+	    }
+	    int digit = num%10;
+	    return digit;
+
+	}
+	
+
+	
+	public static Queue<Integer> sort (Queue <Integer> q)
+	{
+        Queue <Integer> copy = copy(q);
+        Queue <Integer> newQ = new Queue<>();     
+        
+        Queue <Integer> [] arr = new Queue [10];
+        for (int k=0; k<10; k++)
+        {
+            arr[k] = new Queue<>();
+        }
+	    
+	    int biggest = max(copy);
+        copy = copy(q);
+        
+        for(int i=0; i<digitsCount(biggest); i++)
+        {
+            while(!copy.isEmpty())
+            {
+                int current = copy.remove();
+                arr[digit(current, i)].insert(current);                
+            }
+            
+            for(int j=0; j<10; j++)
+            {
+                while (!arr[j].isEmpty())
+                {
+                    copy.insert(arr[j].remove());    
+                }
+            }
+            
+	    }
+	    return copy;
+	}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		public static void tree11a (BinNode<Integer> t) 
+	{
+        if (t == null) 
+            return;
+        
+        if (t.getValue() % 2 == 0) 
+        {
+            boolean hasEvenChild = false;
+
+            if (t.hasLeft() && t.getLeft().getValue() % 2 == 1) 
+                hasEvenChild = true;
+
+            if (t.hasRight() && t.getRight().getValue() % 2 == 1) 
+                hasEvenChild = true;
+
+            if (!hasEvenChild) 
+                System.out.println(t.getValue());
+        }
+        tree11a(t.getLeft());
+        tree11a(t.getRight());
+	}
+	
+	
+	
+	
+	public static int tree11b (BinNode<Integer> t) 
+	{
+        if (t == null) 
+            return 0;
+        
+        int count=0;
+        
+        if (t.getValue() % 2 == 0) 
+        {
+            boolean hasEvenChild = false;
+
+            if (t.hasLeft() && t.getLeft().getValue() % 2 == 1) 
+                hasEvenChild = true;
+
+            if (t.hasRight() && t.getRight().getValue() % 2 == 1) 
+                hasEvenChild = true;
+
+            if (!hasEvenChild) 
+                count=1;
+        }
+        return count + tree11b(t.getLeft()) + tree11b(t.getRight());
+	}
+	
+	
+	
+	
+    public static boolean tree11c(BinNode<Integer> t)
+    {
+        if (t == null)
+            return false;
+    
+        boolean bool = false;
+    
+        if (t.getValue() % 2 == 0)
+        {
+            boolean hasOddChild = false;
+    
+            if (t.hasLeft() && t.getLeft().getValue() % 2 == 1)
+                hasOddChild = true;
+    
+            if (t.hasRight() && t.getRight().getValue() % 2 == 1)
+                hasOddChild = true;
+    
+            if (!hasOddChild)
+                bool = true;
+        }
+        return bool || tree11c(t.getLeft()) || tree11c(t.getRight());
+    }
+    
+    
+   
+    
+    public static boolean tree11d(BinNode<Integer> t)
+    {
+        if (t == null)
+            return false;   
+    
+        boolean bool = true;
+    
+        if (t.getValue() % 2 == 0)
+        {
+            if (t.hasLeft() && t.getLeft().getValue() % 2 == 1)
+                bool = false;
+    
+            if (t.hasRight() && t.getRight().getValue() % 2 == 1)
+                bool = false;
+        }
+        return bool && tree11d(t.getLeft()) && tree11d(t.getRight());
+    }
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+
+
+
+
+	public static boolean allLeavesEven(BinNode<Integer> t) 
+    {
+        if (t == null)
+            return true;   
+    
+        if (!t.hasRight() && !t.hasLeft()) 
+        {
+            if (t.getValue() % 2 != 0)
+            {
+                return false;
+            }
+        }
+        return allLeavesEven(t.getLeft()) && allLeavesEven(t.getRight());
+    }
+
+
+
+
+
+	public static boolean allLeftHaveRight(BinNode<Integer> t)
+    {
+        if (t == null)
+            return true;   
+    
+        if (t.hasRight()) 
+        {
+            if (!t.hasLeft())
+            {
+                return false;
+            }
+        }
+        return allLeftHaveRight(t.getLeft()) && allLeftHaveRight(t.getRight());
+    }
+
+
+
+
+
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static int between10and100(BinNode<Integer> t)      //ex12
+    {
+        if (t == null) 
+            return 0;
+        
+        int count=0;
+            
+        if (t.getValue() < 100 && t.getValue() >= 10) 
+            count=1;
+            
+        return count + between10and100(t.getLeft()) + between10and100(t.getRight());
+    }
+    
+    
+    
+    
+    public static int numLeaves (BinNode<Integer> t)       //ex14
+	{
+        if (t == null) 
+            return 0;
+        
+        int count=0;
+            
+        if (!t.hasRight() && !t.hasLeft()) 
+            count=1;
+            
+        return count + numLeaves(t.getLeft()) + numLeaves(t.getRight());
+	}
+    
+    
+    
+    
+    public static double hasTwoSons (BinNode<Integer> t)       //ex16
+	{
+        if (t == null) 
+            return 0;
+        
+        double sum=0;
+            
+        if (t.hasRight() && t.hasLeft()) 
+            sum = t.getValue();
+            
+        return sum + hasTwoSons(t.getLeft()) + hasTwoSons(t.getRight());
+	}
+	
+	
+	
+	
+	public static int twoSonsNotLeaves (BinNode<Integer> t)       //ex17
+	{
+        if (t == null) 
+            return 0;
+        
+        int count = 0;
+            
+        if (t.hasRight() && t.hasLeft())
+        {
+            if ((t.getLeft().hasLeft() || t.getLeft().hasRight()) && (t.getRight().hasRight() || t.getRight().hasLeft()))
+                count = 1;
+        }
+        return count + twoSonsNotLeaves(t.getLeft()) + twoSonsNotLeaves(t.getRight());
+	}
+
+
+
+
+    public static boolean containsAll(BinNode<Integer> t1, BinNode<Integer> t2)       //ex 18
+    {
+        if (t2 == null)
+            return true;
+    
+        if (t1 == null)
+            return false;
+    
+        if (!exists(t1, t2.getValue()))
+            return false;
+    
+        return containsAll(t1, t2.getLeft()) &&
+               containsAll(t1, t2.getRight());
+    }
+    
+    
+        
+    
+    public static boolean from1ToN(BinNode<Integer> t, int n)       //ex 20
+    {
+        for (int i = 1; i <= n; i++)
+        {
+            if (!exists(t, i))
+                return false;
+        }
+    
+        return countNodes(t) == n;
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+    
+//helper functions   
+/////////////////////////////////////////////////////////////////////////////////////////////
+    private static boolean exists(BinNode<Integer> t, int x)
+    {
+        if (t == null)
+            return false;
+    
+        if (t.getValue() == x)
+            return true;
+    
+        return exists(t.getLeft(), x) ||
+               exists(t.getRight(), x);
+    }
+    
+
+
+    private static int countNodes(BinNode<Integer> t)
+    {
+        if (t == null)
+            return 0;
+    
+        return 1 + countNodes(t.getLeft()) + countNodes(t.getRight());
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+	
+	public static void main(String [] args)
+	{
+	    int [] a = {1,2,2,5};
+	    int [] b = {3,18,21,81};
+        Queue <Integer> q1 = buildQueue(a);
+        Queue <Integer> q2 = buildQueue(b);
+        
+	    System.out.println(max(q1));
+	    System.out.println(digitsCount(3895));
+	    System.out.println(digit(3895, 3));
+	    System.out.println(sort(q2));
+
+
+
+
+		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		BinNode<Integer> t15 = new BinNode<Integer>(15);
+		BinNode<Integer> t14 = new BinNode<Integer>(14);
+		BinNode<Integer> tree = new BinNode<Integer>(t15, 3, t14);
+		BinNode<Integer> t9 = new BinNode<Integer>(9);
+		tree.getLeft().setLeft(new BinNode<Integer>(t9, 6, new BinNode<Integer>(7)));
+		tree.getLeft().setRight(new BinNode<Integer>(new BinNode<Integer>(34), 56, new BinNode<Integer>(12)));
+
+		
+	    tree11a(tree);
+		System.out.println(tree11b(tree));
+		System.out.println(tree11c(tree));
+		System.out.println(tree11d(tree));
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+	    
+	    
+	}
+	
+
+}   
+
+
+
+
