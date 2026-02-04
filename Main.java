@@ -360,7 +360,7 @@ public class Main
     
         
     
-    public static boolean isOkvimN(BinNode<Integer> t, int n)       //ex 20
+    public static boolean from1ToN(BinNode<Integer> t, int n)       //ex 20
     {
         for (int i = 1; i <= n; i++)
         {
